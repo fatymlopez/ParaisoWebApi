@@ -1,0 +1,124 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.Web.Http;
+using System.Web.Http.Description;
+using WebApiParaiso.Models;
+
+namespace WebApiParaiso.Controllers
+{
+    public class reservacionsController : ApiController
+    {
+        private Modelos db = new Modelos();
+
+        // GET: api/reservacions
+        [HttpGet]
+        public IQueryable<reservacion> Getreservacion()
+        {
+            return db.reservacion;
+        }
+
+        // GET: api/reservacions/5
+        [HttpGet]
+        [ResponseType(typeof(reservacion))]
+        public async Task<IHttpActionResult> Getreservacion(int id)
+        {
+            reservacion reservacion = await db.reservacion.FindAsync(id);
+            if (reservacion == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(reservacion);
+        }
+
+        // PUT: api/reservacions/5
+        [HttpPut]
+        [ResponseType(typeof(void))]
+        public async Task<IHttpActionResult> Putreservacion(int id, reservacion reservacion)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != reservacion.id)
+            {
+                return BadRequest();
+            }
+
+            db.Entry(reservacion).State = EntityState.Modified;
+
+            try
+            {
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!reservacionExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
+        // POST: api/reservacions
+        [HttpPost]
+        [ResponseType(typeof(reservacion))]
+        public async Task<IHttpActionResult> Postreservacion(reservacion reservacion)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            db.reservacion.Add(reservacion);
+            await db.SaveChangesAsync();
+
+            return CreatedAtRoute("DefaultApi", new { id = reservacion.id }, reservacion);
+        }
+
+        // DELETE: api/reservacions/5
+        [HttpDelete]
+        [ResponseType(typeof(reservacion))]
+        public async Task<IHttpActionResult> Deletereservacion(int id)
+        {
+            reservacion reservacion = await db.reservacion.FindAsync(id);
+            if (reservacion == null)
+            {
+                return NotFound();
+            }
+
+            db.reservacion.Remove(reservacion);
+            await db.SaveChangesAsync();
+
+            return Ok(reservacion);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        private bool reservacionExists(int id)
+        {
+            return db.reservacion.Count(e => e.id == id) > 0;
+        }
+    }
+}
