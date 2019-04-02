@@ -11,49 +11,49 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using WebApiParaiso.Models;
 
-namespace WebApiParaiso.Controllers
+namespace WebApiParaiso.Areas.HelpPage.Controllers
 {
-    public class ubicacionsController : ApiController
+    public class productossController : ApiController
     {
-        private Modelos db = new Modelos();
+        private ModeloDB db = new ModeloDB();
 
-        // GET: api/ubicacions
+        // GET: api/productoss
         [HttpGet]
-        public IQueryable<ubicacion> Getubicacion()
+        public IQueryable<productos> Getproductos()
         {
-            return db.ubicacion;
+            return db.productos;
         }
 
-        // GET: api/ubicacions/5
+        // GET: api/productoss/5
         [HttpGet]
-        [ResponseType(typeof(ubicacion))]
-        public async Task<IHttpActionResult> Getubicacion(int id)
+        [ResponseType(typeof(productos))]
+        public async Task<IHttpActionResult> Getproductos(int id)
         {
-            ubicacion ubicacion = await db.ubicacion.FindAsync(id);
-            if (ubicacion == null)
+            productos productos = await db.productos.FindAsync(id);
+            if (productos == null)
             {
                 return NotFound();
             }
 
-            return Ok(ubicacion);
+            return Ok(productos);
         }
 
-        // PUT: api/ubicacions/5
+        // PUT: api/productoss/5
         [HttpPut]
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> Putubicacion(int id, ubicacion ubicacion)
+        public async Task<IHttpActionResult> Putproductos(int id, productos productos)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != ubicacion.id)
+            if (id != productos.id)
             {
                 return BadRequest();
             }
 
-            db.Entry(ubicacion).State = EntityState.Modified;
+            db.Entry(productos).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace WebApiParaiso.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ubicacionExists(id))
+                if (!productosExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +74,37 @@ namespace WebApiParaiso.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/ubicacions
+        // POST: api/productoss
         [HttpPost]
-        [ResponseType(typeof(ubicacion))]
-        public async Task<IHttpActionResult> Postubicacion(ubicacion ubicacion)
+        [ResponseType(typeof(productos))]
+        public async Task<IHttpActionResult> Postproductos(productos productos)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.ubicacion.Add(ubicacion);
+            db.productos.Add(productos);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = ubicacion.id }, ubicacion);
+            return CreatedAtRoute("DefaultApi", new { id = productos.id }, productos);
         }
 
-        // DELETE: api/ubicacions/5
+        // DELETE: api/productoss/5
         [HttpDelete]
-        [ResponseType(typeof(ubicacion))]
-        public async Task<IHttpActionResult> Deleteubicacion(int id)
+        [ResponseType(typeof(productos))]
+        public async Task<IHttpActionResult> Deleteproductos(int id)
         {
-            ubicacion ubicacion = await db.ubicacion.FindAsync(id);
-            if (ubicacion == null)
+            productos productos = await db.productos.FindAsync(id);
+            if (productos == null)
             {
                 return NotFound();
             }
 
-            db.ubicacion.Remove(ubicacion);
+            db.productos.Remove(productos);
             await db.SaveChangesAsync();
 
-            return Ok(ubicacion);
+            return Ok(productos);
         }
 
         protected override void Dispose(bool disposing)
@@ -116,9 +116,9 @@ namespace WebApiParaiso.Controllers
             base.Dispose(disposing);
         }
 
-        private bool ubicacionExists(int id)
+        private bool productosExists(int id)
         {
-            return db.ubicacion.Count(e => e.id == id) > 0;
+            return db.productos.Count(e => e.id == id) > 0;
         }
     }
 }

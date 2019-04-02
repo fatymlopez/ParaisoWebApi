@@ -11,49 +11,49 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using WebApiParaiso.Models;
 
-namespace WebApiParaiso.Controllers
+namespace WebApiParaiso.Areas.HelpPage.Controllers
 {
-    public class menusController : ApiController
+    public class categoriassController : ApiController
     {
-        private Modelos db = new Modelos();
+        private ModeloDB db = new ModeloDB();
 
-        // GET: api/menus
+        // GET: api/categoriass
         [HttpGet]
-        public IQueryable<menu> Getmenu()
+        public IQueryable<categorias> Getcategorias()
         {
-            return db.menu;
+            return db.categorias;
         }
 
-        // GET: api/menus/5
+        // GET: api/categoriass/5
         [HttpGet]
-        [ResponseType(typeof(menu))]
-        public async Task<IHttpActionResult> Getmenu(int id)
+        [ResponseType(typeof(categorias))]
+        public async Task<IHttpActionResult> Getcategorias(int id)
         {
-            menu menu = await db.menu.FindAsync(id);
-            if (menu == null)
+            categorias categorias = await db.categorias.FindAsync(id);
+            if (categorias == null)
             {
                 return NotFound();
             }
 
-            return Ok(menu);
+            return Ok(categorias);
         }
 
-        // PUT: api/menus/5
+        // PUT: api/categoriass/5
         [HttpPut]
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> Putmenu(int id, menu menu)
+        public async Task<IHttpActionResult> Putcategorias(int id, categorias categorias)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != menu.id)
+            if (id != categorias.id)
             {
                 return BadRequest();
             }
 
-            db.Entry(menu).State = EntityState.Modified;
+            db.Entry(categorias).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace WebApiParaiso.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!menuExists(id))
+                if (!categoriasExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +74,37 @@ namespace WebApiParaiso.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/menus
+        // POST: api/categoriass
         [HttpPost]
-        [ResponseType(typeof(menu))]
-        public async Task<IHttpActionResult> Postmenu(menu menu)
+        [ResponseType(typeof(categorias))]
+        public async Task<IHttpActionResult> Postcategorias(categorias categorias)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.menu.Add(menu);
+            db.categorias.Add(categorias);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = menu.id }, menu);
+            return CreatedAtRoute("DefaultApi", new { id = categorias.id }, categorias);
         }
 
-        // DELETE: api/menus/5
+        // DELETE: api/categoriass/5
         [HttpDelete]
-        [ResponseType(typeof(menu))]
-        public async Task<IHttpActionResult> Deletemenu(int id)
+        [ResponseType(typeof(categorias))]
+        public async Task<IHttpActionResult> Deletecategorias(int id)
         {
-            menu menu = await db.menu.FindAsync(id);
-            if (menu == null)
+            categorias categorias = await db.categorias.FindAsync(id);
+            if (categorias == null)
             {
                 return NotFound();
             }
 
-            db.menu.Remove(menu);
+            db.categorias.Remove(categorias);
             await db.SaveChangesAsync();
 
-            return Ok(menu);
+            return Ok(categorias);
         }
 
         protected override void Dispose(bool disposing)
@@ -116,9 +116,9 @@ namespace WebApiParaiso.Controllers
             base.Dispose(disposing);
         }
 
-        private bool menuExists(int id)
+        private bool categoriasExists(int id)
         {
-            return db.menu.Count(e => e.id == id) > 0;
+            return db.categorias.Count(e => e.id == id) > 0;
         }
     }
 }

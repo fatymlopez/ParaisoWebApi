@@ -11,49 +11,49 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using WebApiParaiso.Models;
 
-namespace WebApiParaiso.Controllers
+namespace WebApiParaiso.Areas.HelpPage.Controllers
 {
-    public class ordensController : ApiController
+    public class usuappsController : ApiController
     {
-        private Modelos db = new Modelos();
+        private ModeloDB db = new ModeloDB();
 
-        // GET: api/ordens
+        // GET: api/usuapps
         [HttpGet]
-        public IQueryable<orden> Getorden()
+        public IQueryable<usuapp> Getusuapp()
         {
-            return db.orden;
+            return db.usuapp;
         }
 
-        // GET: api/ordens/5
+        // GET: api/usuapps/5
         [HttpGet]
-        [ResponseType(typeof(orden))]
-        public async Task<IHttpActionResult> Getorden(int id)
+        [ResponseType(typeof(usuapp))]
+        public async Task<IHttpActionResult> Getusuapp(int id)
         {
-            orden orden = await db.orden.FindAsync(id);
-            if (orden == null)
+            usuapp usuapp = await db.usuapp.FindAsync(id);
+            if (usuapp == null)
             {
                 return NotFound();
             }
 
-            return Ok(orden);
+            return Ok(usuapp);
         }
 
-        // PUT: api/ordens/5
+        // PUT: api/usuapps/5
         [HttpPut]
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> Putorden(int id, orden orden)
+        public async Task<IHttpActionResult> Putusuapp(int id, usuapp usuapp)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != orden.id)
+            if (id != usuapp.id)
             {
                 return BadRequest();
             }
 
-            db.Entry(orden).State = EntityState.Modified;
+            db.Entry(usuapp).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace WebApiParaiso.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ordenExists(id))
+                if (!usuappExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +74,37 @@ namespace WebApiParaiso.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/ordens
+        // POST: api/usuapps
         [HttpPost]
-        [ResponseType(typeof(orden))]
-        public async Task<IHttpActionResult> Postorden(orden orden)
+        [ResponseType(typeof(usuapp))]
+        public async Task<IHttpActionResult> Postusuapp(usuapp usuapp)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.orden.Add(orden);
+            db.usuapp.Add(usuapp);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = orden.id }, orden);
+            return CreatedAtRoute("DefaultApi", new { id = usuapp.id }, usuapp);
         }
 
-        // DELETE: api/ordens/5
+        // DELETE: api/usuapps/5
         [HttpDelete]
-        [ResponseType(typeof(orden))]
-        public async Task<IHttpActionResult> Deleteorden(int id)
+        [ResponseType(typeof(usuapp))]
+        public async Task<IHttpActionResult> Deleteusuapp(int id)
         {
-            orden orden = await db.orden.FindAsync(id);
-            if (orden == null)
+            usuapp usuapp = await db.usuapp.FindAsync(id);
+            if (usuapp == null)
             {
                 return NotFound();
             }
 
-            db.orden.Remove(orden);
+            db.usuapp.Remove(usuapp);
             await db.SaveChangesAsync();
 
-            return Ok(orden);
+            return Ok(usuapp);
         }
 
         protected override void Dispose(bool disposing)
@@ -116,9 +116,9 @@ namespace WebApiParaiso.Controllers
             base.Dispose(disposing);
         }
 
-        private bool ordenExists(int id)
+        private bool usuappExists(int id)
         {
-            return db.orden.Count(e => e.id == id) > 0;
+            return db.usuapp.Count(e => e.id == id) > 0;
         }
     }
 }

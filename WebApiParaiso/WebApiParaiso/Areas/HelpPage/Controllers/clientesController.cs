@@ -11,49 +11,49 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using WebApiParaiso.Models;
 
-namespace WebApiParaiso.Controllers
+namespace WebApiParaiso.Areas.HelpPage.Controllers
 {
-    public class ventashesController : ApiController
+    public class clientesController : ApiController
     {
-        private Modelos db = new Modelos();
+        private ModeloDB db = new ModeloDB();
 
-        // GET: api/ventashes
+        // GET: api/clientes
         [HttpGet]
-        public IQueryable<ventash> Getventash()
+        public IQueryable<cliente> Getcliente()
         {
-            return db.ventash;
+            return db.cliente;
         }
 
-        // GET: api/ventashes/5
+        // GET: api/clientes/5
         [HttpGet]
-        [ResponseType(typeof(ventash))]
-        public async Task<IHttpActionResult> Getventash(int id)
+        [ResponseType(typeof(cliente))]
+        public async Task<IHttpActionResult> Getcliente(int id)
         {
-            ventash ventash = await db.ventash.FindAsync(id);
-            if (ventash == null)
+            cliente cliente = await db.cliente.FindAsync(id);
+            if (cliente == null)
             {
                 return NotFound();
             }
 
-            return Ok(ventash);
+            return Ok(cliente);
         }
 
-        // PUT: api/ventashes/5
+        // PUT: api/clientes/5
         [HttpPut]
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> Putventash(int id, ventash ventash)
+        public async Task<IHttpActionResult> Putcliente(int id, cliente cliente)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != ventash.id)
+            if (id != cliente.id)
             {
                 return BadRequest();
             }
 
-            db.Entry(ventash).State = EntityState.Modified;
+            db.Entry(cliente).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace WebApiParaiso.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ventashExists(id))
+                if (!clienteExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +74,37 @@ namespace WebApiParaiso.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/ventashes
+        // POST: api/clientes
         [HttpPost]
-        [ResponseType(typeof(ventash))]
-        public async Task<IHttpActionResult> Postventash(ventash ventash)
+        [ResponseType(typeof(cliente))]
+        public async Task<IHttpActionResult> Postcliente(cliente cliente)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.ventash.Add(ventash);
+            db.cliente.Add(cliente);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = ventash.id }, ventash);
+            return CreatedAtRoute("DefaultApi", new { id = cliente.id }, cliente);
         }
 
-        // DELETE: api/ventashes/5
+        // DELETE: api/clientes/5
         [HttpDelete]
-        [ResponseType(typeof(ventash))]
-        public async Task<IHttpActionResult> Deleteventash(int id)
+        [ResponseType(typeof(cliente))]
+        public async Task<IHttpActionResult> Deletecliente(int id)
         {
-            ventash ventash = await db.ventash.FindAsync(id);
-            if (ventash == null)
+            cliente cliente = await db.cliente.FindAsync(id);
+            if (cliente == null)
             {
                 return NotFound();
             }
 
-            db.ventash.Remove(ventash);
+            db.cliente.Remove(cliente);
             await db.SaveChangesAsync();
 
-            return Ok(ventash);
+            return Ok(cliente);
         }
 
         protected override void Dispose(bool disposing)
@@ -116,9 +116,9 @@ namespace WebApiParaiso.Controllers
             base.Dispose(disposing);
         }
 
-        private bool ventashExists(int id)
+        private bool clienteExists(int id)
         {
-            return db.ventash.Count(e => e.id == id) > 0;
+            return db.cliente.Count(e => e.id == id) > 0;
         }
     }
 }

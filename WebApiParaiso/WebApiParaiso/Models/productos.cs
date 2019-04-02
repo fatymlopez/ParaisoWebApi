@@ -11,7 +11,7 @@ namespace WebApiParaiso.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public productos()
         {
-            menu = new HashSet<menu>();
+            detallereservacion = new HashSet<detallereservacion>();
         }
 
         public int id { get; set; }
@@ -24,7 +24,6 @@ namespace WebApiParaiso.Models
 
         public string descripcion { get; set; }
 
-        [Column(TypeName = "money")]
         public decimal precio { get; set; }
 
         public int existencia { get; set; }
@@ -32,6 +31,6 @@ namespace WebApiParaiso.Models
         public virtual categorias categorias { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<menu> menu { get; set; }
+        public virtual ICollection<detallereservacion> detallereservacion { get; set; }
     }
 }

@@ -5,22 +5,21 @@ namespace WebApiParaiso.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
-    public partial class Modelos : DbContext
+    public partial class ModeloDB : DbContext
     {
-        public Modelos()
-            : base("name=Modelos")
+        public ModeloDB()
+            : base("name=ModeloDB")
         {
         }
 
         public DbSet<categorias> categorias { get; set; }
         public DbSet<cliente> cliente { get; set; }
-        public DbSet<menu> menu { get; set; }
+        public DbSet<detallereservacion> detallereservacion { get; set; }
         public DbSet<orden> orden { get; set; }
         public DbSet<productos> productos { get; set; }
         public DbSet<reservacion> reservacion { get; set; }
         public DbSet<ubicacion> ubicacion { get; set; }
         public DbSet<usuapp> usuapp { get; set; }
-        public virtual DbSet<ventash> ventash { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -51,31 +50,9 @@ namespace WebApiParaiso.Models
                 .IsUnicode(false);
 
             modelBuilder.Entity<cliente>()
-                .HasMany(e => e.orden)
+                .HasMany(e => e.reservacion)
                 .WithRequired(e => e.cliente)
                 .HasForeignKey(e => e.idcliente)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<menu>()
-                .Property(e => e.descripcion)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<menu>()
-                .Property(e => e.precio)
-                .HasPrecision(19, 4);
-
-            modelBuilder.Entity<orden>()
-                .Property(e => e.precio)
-                .HasPrecision(19, 4);
-
-            modelBuilder.Entity<orden>()
-                .Property(e => e.total)
-                .HasPrecision(19, 4);
-
-            modelBuilder.Entity<orden>()
-                .HasMany(e => e.ventash)
-                .WithRequired(e => e.orden)
-                .HasForeignKey(e => e.idorden)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<productos>()
@@ -88,21 +65,38 @@ namespace WebApiParaiso.Models
 
             modelBuilder.Entity<productos>()
                 .Property(e => e.precio)
-                .HasPrecision(19, 4);
+                .HasPrecision(6, 2);
 
             modelBuilder.Entity<productos>()
-                .HasMany(e => e.menu)
+                .HasMany(e => e.detallereservacion)
                 .WithRequired(e => e.productos)
                 .HasForeignKey(e => e.idproducto)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<reservacion>()
-                .Property(e => e.precio)
-                .HasPrecision(19, 4);
+                .Property(e => e.total)
+                .HasPrecision(6, 2);
+
+            modelBuilder.Entity<reservacion>()
+                .HasMany(e => e.detallereservacion)
+                .WithRequired(e => e.reservacion)
+                .HasForeignKey(e => e.idreservacion)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<reservacion>()
+                .HasMany(e => e.orden)
+                .WithOptional(e => e.reservacion)
+                .HasForeignKey(e => e.idreservacion);
 
             modelBuilder.Entity<ubicacion>()
                 .Property(e => e.nomubicacion)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<ubicacion>()
+                .HasMany(e => e.orden)
+                .WithRequired(e => e.ubicacion)
+                .HasForeignKey(e => e.idubicacion)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<usuapp>()
                 .Property(e => e.nombre)
@@ -119,14 +113,6 @@ namespace WebApiParaiso.Models
             modelBuilder.Entity<usuapp>()
                 .Property(e => e.passusu)
                 .IsUnicode(false);
-
-            modelBuilder.Entity<ventash>()
-                .Property(e => e.precio)
-                .HasPrecision(19, 4);
-
-            modelBuilder.Entity<ventash>()
-                .Property(e => e.total)
-                .HasPrecision(19, 4);
         }
     }
 }

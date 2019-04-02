@@ -11,49 +11,49 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using WebApiParaiso.Models;
 
-namespace WebApiParaiso.Controllers
+namespace WebApiParaiso.Areas.HelpPage.Controllers
 {
-    public class productossController : ApiController
+    public class reservacionsController : ApiController
     {
-        private Modelos db = new Modelos();
+        private ModeloDB db = new ModeloDB();
 
-        // GET: api/productoss
+        // GET: api/reservacions
         [HttpGet]
-        public IQueryable<productos> Getproductos()
+        public IQueryable<reservacion> Getreservacion()
         {
-            return db.productos;
+            return db.reservacion;
         }
 
-        // GET: api/productoss/5
+        // GET: api/reservacions/5
         [HttpGet]
-        [ResponseType(typeof(productos))]
-        public async Task<IHttpActionResult> Getproductos(int id)
+        [ResponseType(typeof(reservacion))]
+        public async Task<IHttpActionResult> Getreservacion(int id)
         {
-            productos productos = await db.productos.FindAsync(id);
-            if (productos == null)
+            reservacion reservacion = await db.reservacion.FindAsync(id);
+            if (reservacion == null)
             {
                 return NotFound();
             }
 
-            return Ok(productos);
+            return Ok(reservacion);
         }
 
-        // PUT: api/productoss/5
+        // PUT: api/reservacions/5
         [HttpPut]
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> Putproductos(int id, productos productos)
+        public async Task<IHttpActionResult> Putreservacion(int id, reservacion reservacion)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != productos.id)
+            if (id != reservacion.id)
             {
                 return BadRequest();
             }
 
-            db.Entry(productos).State = EntityState.Modified;
+            db.Entry(reservacion).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +61,7 @@ namespace WebApiParaiso.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!productosExists(id))
+                if (!reservacionExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +74,37 @@ namespace WebApiParaiso.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/productoss
+        // POST: api/reservacions
         [HttpPost]
-        [ResponseType(typeof(productos))]
-        public async Task<IHttpActionResult> Postproductos(productos productos)
+        [ResponseType(typeof(reservacion))]
+        public async Task<IHttpActionResult> Postreservacion(reservacion reservacion)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.productos.Add(productos);
+            db.reservacion.Add(reservacion);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = productos.id }, productos);
+            return CreatedAtRoute("DefaultApi", new { id = reservacion.id }, reservacion);
         }
 
-        // DELETE: api/productoss/5
+        // DELETE: api/reservacions/5
         [HttpDelete]
-        [ResponseType(typeof(productos))]
-        public async Task<IHttpActionResult> Deleteproductos(int id)
+        [ResponseType(typeof(reservacion))]
+        public async Task<IHttpActionResult> Deletereservacion(int id)
         {
-            productos productos = await db.productos.FindAsync(id);
-            if (productos == null)
+            reservacion reservacion = await db.reservacion.FindAsync(id);
+            if (reservacion == null)
             {
                 return NotFound();
             }
 
-            db.productos.Remove(productos);
+            db.reservacion.Remove(reservacion);
             await db.SaveChangesAsync();
 
-            return Ok(productos);
+            return Ok(reservacion);
         }
 
         protected override void Dispose(bool disposing)
@@ -116,9 +116,9 @@ namespace WebApiParaiso.Controllers
             base.Dispose(disposing);
         }
 
-        private bool productosExists(int id)
+        private bool reservacionExists(int id)
         {
-            return db.productos.Count(e => e.id == id) > 0;
+            return db.reservacion.Count(e => e.id == id) > 0;
         }
     }
 }

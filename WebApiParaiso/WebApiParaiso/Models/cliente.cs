@@ -12,7 +12,7 @@ namespace WebApiParaiso.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public cliente()
         {
-            orden = new HashSet<orden>();
+            reservacion = new HashSet<reservacion>();
         }
 
         public int id { get; set; }
@@ -34,6 +34,6 @@ namespace WebApiParaiso.Models
         public string passcl { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<orden> orden { get; set; }
+        public virtual ICollection<reservacion> reservacion { get; set; }
     }
 }
