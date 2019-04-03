@@ -5,10 +5,10 @@ namespace WebApiParaiso.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
-    public partial class ModeloDB : DbContext
+    public partial class Modelodb : DbContext
     {
-        public ModeloDB()
-            : base("name=ModeloDB")
+        public Modelodb()
+            : base("name=Modelodb")
         {
         }
 
@@ -51,9 +51,8 @@ namespace WebApiParaiso.Models
 
             modelBuilder.Entity<cliente>()
                 .HasMany(e => e.reservacion)
-                .WithRequired(e => e.cliente)
-                .HasForeignKey(e => e.idcliente)
-                .WillCascadeOnDelete(false);
+                .WithOptional(e => e.cliente)
+                .HasForeignKey(e => e.idcliente);
 
             modelBuilder.Entity<productos>()
                 .Property(e => e.nomproducto)
@@ -72,10 +71,6 @@ namespace WebApiParaiso.Models
                 .WithRequired(e => e.productos)
                 .HasForeignKey(e => e.idproducto)
                 .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<reservacion>()
-                .Property(e => e.total)
-                .HasPrecision(6, 2);
 
             modelBuilder.Entity<reservacion>()
                 .HasMany(e => e.detallereservacion)

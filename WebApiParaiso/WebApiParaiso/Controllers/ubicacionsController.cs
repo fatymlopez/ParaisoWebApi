@@ -11,49 +11,46 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using WebApiParaiso.Models;
 
-namespace WebApiParaiso.Areas.HelpPage.Controllers
+namespace WebApiParaiso.Controllers
 {
-    public class clientesController : ApiController
+    public class ubicacionsController : ApiController
     {
-        private ModeloDB db = new ModeloDB();
+        private Modelodb db = new Modelodb();
 
-        // GET: api/clientes
-        [HttpGet]
-        public IQueryable<cliente> Getcliente()
+        // GET: api/ubicacions
+        public IQueryable<ubicacion> Getubicacion()
         {
-            return db.cliente;
+            return db.ubicacion;
         }
 
-        // GET: api/clientes/5
-        [HttpGet]
-        [ResponseType(typeof(cliente))]
-        public async Task<IHttpActionResult> Getcliente(int id)
+        // GET: api/ubicacions/5
+        [ResponseType(typeof(ubicacion))]
+        public async Task<IHttpActionResult> Getubicacion(int id)
         {
-            cliente cliente = await db.cliente.FindAsync(id);
-            if (cliente == null)
+            ubicacion ubicacion = await db.ubicacion.FindAsync(id);
+            if (ubicacion == null)
             {
                 return NotFound();
             }
 
-            return Ok(cliente);
+            return Ok(ubicacion);
         }
 
-        // PUT: api/clientes/5
-        [HttpPut]
+        // PUT: api/ubicacions/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> Putcliente(int id, cliente cliente)
+        public async Task<IHttpActionResult> Putubicacion(int id, ubicacion ubicacion)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != cliente.id)
+            if (id != ubicacion.id)
             {
                 return BadRequest();
             }
 
-            db.Entry(cliente).State = EntityState.Modified;
+            db.Entry(ubicacion).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +58,7 @@ namespace WebApiParaiso.Areas.HelpPage.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!clienteExists(id))
+                if (!ubicacionExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +71,35 @@ namespace WebApiParaiso.Areas.HelpPage.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/clientes
-        [HttpPost]
-        [ResponseType(typeof(cliente))]
-        public async Task<IHttpActionResult> Postcliente(cliente cliente)
+        // POST: api/ubicacions
+        [ResponseType(typeof(ubicacion))]
+        public async Task<IHttpActionResult> Postubicacion(ubicacion ubicacion)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.cliente.Add(cliente);
+            db.ubicacion.Add(ubicacion);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = cliente.id }, cliente);
+            return CreatedAtRoute("DefaultApi", new { id = ubicacion.id }, ubicacion);
         }
 
-        // DELETE: api/clientes/5
-        [HttpDelete]
-        [ResponseType(typeof(cliente))]
-        public async Task<IHttpActionResult> Deletecliente(int id)
+        // DELETE: api/ubicacions/5
+        [ResponseType(typeof(ubicacion))]
+        public async Task<IHttpActionResult> Deleteubicacion(int id)
         {
-            cliente cliente = await db.cliente.FindAsync(id);
-            if (cliente == null)
+            ubicacion ubicacion = await db.ubicacion.FindAsync(id);
+            if (ubicacion == null)
             {
                 return NotFound();
             }
 
-            db.cliente.Remove(cliente);
+            db.ubicacion.Remove(ubicacion);
             await db.SaveChangesAsync();
 
-            return Ok(cliente);
+            return Ok(ubicacion);
         }
 
         protected override void Dispose(bool disposing)
@@ -116,9 +111,9 @@ namespace WebApiParaiso.Areas.HelpPage.Controllers
             base.Dispose(disposing);
         }
 
-        private bool clienteExists(int id)
+        private bool ubicacionExists(int id)
         {
-            return db.cliente.Count(e => e.id == id) > 0;
+            return db.ubicacion.Count(e => e.id == id) > 0;
         }
     }
 }

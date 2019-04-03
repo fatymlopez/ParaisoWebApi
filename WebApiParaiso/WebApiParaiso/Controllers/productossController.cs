@@ -11,21 +11,19 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using WebApiParaiso.Models;
 
-namespace WebApiParaiso.Areas.HelpPage.Controllers
+namespace WebApiParaiso.Controllers
 {
     public class productossController : ApiController
     {
-        private ModeloDB db = new ModeloDB();
+        private Modelodb db = new Modelodb();
 
         // GET: api/productoss
-        [HttpGet]
         public IQueryable<productos> Getproductos()
         {
             return db.productos;
         }
 
         // GET: api/productoss/5
-        [HttpGet]
         [ResponseType(typeof(productos))]
         public async Task<IHttpActionResult> Getproductos(int id)
         {
@@ -39,7 +37,6 @@ namespace WebApiParaiso.Areas.HelpPage.Controllers
         }
 
         // PUT: api/productoss/5
-        [HttpPut]
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> Putproductos(int id, productos productos)
         {
@@ -75,7 +72,6 @@ namespace WebApiParaiso.Areas.HelpPage.Controllers
         }
 
         // POST: api/productoss
-        [HttpPost]
         [ResponseType(typeof(productos))]
         public async Task<IHttpActionResult> Postproductos(productos productos)
         {
@@ -91,7 +87,6 @@ namespace WebApiParaiso.Areas.HelpPage.Controllers
         }
 
         // DELETE: api/productoss/5
-        [HttpDelete]
         [ResponseType(typeof(productos))]
         public async Task<IHttpActionResult> Deleteproductos(int id)
         {

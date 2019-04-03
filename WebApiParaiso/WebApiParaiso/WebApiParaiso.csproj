@@ -142,15 +142,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
     <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
-    <Compile Include="Areas\HelpPage\Controllers\categoriassController.cs" />
-    <Compile Include="Areas\HelpPage\Controllers\clientesController.cs" />
-    <Compile Include="Areas\HelpPage\Controllers\detallereservacionssController.cs" />
     <Compile Include="Areas\HelpPage\Controllers\HelpController.cs" />
-    <Compile Include="Areas\HelpPage\Controllers\ordensController.cs" />
-    <Compile Include="Areas\HelpPage\Controllers\productossController.cs" />
-    <Compile Include="Areas\HelpPage\Controllers\reservacionsController.cs" />
-    <Compile Include="Areas\HelpPage\Controllers\ubicacionsController.cs" />
-    <Compile Include="Areas\HelpPage\Controllers\usuappsController.cs" />
     <Compile Include="Areas\HelpPage\HelpPageAreaRegistration.cs" />
     <Compile Include="Areas\HelpPage\HelpPageConfigurationExtensions.cs" />
     <Compile Include="Areas\HelpPage\ModelDescriptions\CollectionModelDescription.cs" />
@@ -176,7 +168,15 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\categoriassController.cs" />
+    <Compile Include="Controllers\clientesController.cs" />
+    <Compile Include="Controllers\detallereservacionsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ordensController.cs" />
+    <Compile Include="Controllers\productossController.cs" />
+    <Compile Include="Controllers\reservacionsController.cs" />
+    <Compile Include="Controllers\ubicacionsController.cs" />
+    <Compile Include="Controllers\usuappsController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -184,7 +184,7 @@
     <Compile Include="Models\categorias.cs" />
     <Compile Include="Models\cliente.cs" />
     <Compile Include="Models\detallereservacion.cs" />
-    <Compile Include="Models\ModeloDB.cs" />
+    <Compile Include="Models\Modelodb.cs" />
     <Compile Include="Models\orden.cs" />
     <Compile Include="Models\productos.cs" />
     <Compile Include="Models\reservacion.cs" />
@@ -229,7 +229,9 @@
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

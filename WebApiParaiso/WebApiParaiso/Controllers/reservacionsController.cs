@@ -11,21 +11,19 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using WebApiParaiso.Models;
 
-namespace WebApiParaiso.Areas.HelpPage.Controllers
+namespace WebApiParaiso.Controllers
 {
     public class reservacionsController : ApiController
     {
-        private ModeloDB db = new ModeloDB();
+        private Modelodb db = new Modelodb();
 
         // GET: api/reservacions
-        [HttpGet]
         public IQueryable<reservacion> Getreservacion()
         {
             return db.reservacion;
         }
 
         // GET: api/reservacions/5
-        [HttpGet]
         [ResponseType(typeof(reservacion))]
         public async Task<IHttpActionResult> Getreservacion(int id)
         {
@@ -39,7 +37,6 @@ namespace WebApiParaiso.Areas.HelpPage.Controllers
         }
 
         // PUT: api/reservacions/5
-        [HttpPut]
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> Putreservacion(int id, reservacion reservacion)
         {
@@ -75,7 +72,6 @@ namespace WebApiParaiso.Areas.HelpPage.Controllers
         }
 
         // POST: api/reservacions
-        [HttpPost]
         [ResponseType(typeof(reservacion))]
         public async Task<IHttpActionResult> Postreservacion(reservacion reservacion)
         {
@@ -91,7 +87,6 @@ namespace WebApiParaiso.Areas.HelpPage.Controllers
         }
 
         // DELETE: api/reservacions/5
-        [HttpDelete]
         [ResponseType(typeof(reservacion))]
         public async Task<IHttpActionResult> Deletereservacion(int id)
         {

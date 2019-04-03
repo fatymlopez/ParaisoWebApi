@@ -18,15 +18,11 @@ namespace WebApiParaiso.Models
 
         public int id { get; set; }
 
-        public int idubicacion { get; set; }
+        public int? idcliente { get; set; }
 
-        public int idcliente { get; set; }
+        public int? total { get; set; }
 
-        public int idproducto { get; set; }
-
-        public int cantidad { get; set; }
-
-        public decimal? total { get; set; }
+        public int? estado { get; set; }
 
         public virtual cliente cliente { get; set; }
 

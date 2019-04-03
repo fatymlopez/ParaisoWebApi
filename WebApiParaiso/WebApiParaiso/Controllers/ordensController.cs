@@ -11,21 +11,19 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using WebApiParaiso.Models;
 
-namespace WebApiParaiso.Areas.HelpPage.Controllers
+namespace WebApiParaiso.Controllers
 {
     public class ordensController : ApiController
     {
-        private ModeloDB db = new ModeloDB();
+        private Modelodb db = new Modelodb();
 
         // GET: api/ordens
-        [HttpGet]
         public IQueryable<orden> Getorden()
         {
             return db.orden;
         }
 
         // GET: api/ordens/5
-        [HttpGet]
         [ResponseType(typeof(orden))]
         public async Task<IHttpActionResult> Getorden(int id)
         {
@@ -39,7 +37,6 @@ namespace WebApiParaiso.Areas.HelpPage.Controllers
         }
 
         // PUT: api/ordens/5
-        [HttpPut]
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> Putorden(int id, orden orden)
         {
@@ -75,7 +72,6 @@ namespace WebApiParaiso.Areas.HelpPage.Controllers
         }
 
         // POST: api/ordens
-        [HttpPost]
         [ResponseType(typeof(orden))]
         public async Task<IHttpActionResult> Postorden(orden orden)
         {
@@ -91,7 +87,6 @@ namespace WebApiParaiso.Areas.HelpPage.Controllers
         }
 
         // DELETE: api/ordens/5
-        [HttpDelete]
         [ResponseType(typeof(orden))]
         public async Task<IHttpActionResult> Deleteorden(int id)
         {

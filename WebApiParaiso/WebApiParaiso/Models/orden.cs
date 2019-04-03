@@ -17,6 +17,8 @@ namespace WebApiParaiso.Models
 
         public DateTime fecha { get; set; }
 
+        public int? estado { get; set; }
+
         public virtual reservacion reservacion { get; set; }
 
         public virtual ubicacion ubicacion { get; set; }

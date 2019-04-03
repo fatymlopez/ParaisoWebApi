@@ -11,49 +11,46 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using WebApiParaiso.Models;
 
-namespace WebApiParaiso.Areas.HelpPage.Controllers
+namespace WebApiParaiso.Controllers
 {
-    public class usuappsController : ApiController
+    public class categoriassController : ApiController
     {
-        private ModeloDB db = new ModeloDB();
+        private Modelodb db = new Modelodb();
 
-        // GET: api/usuapps
-        [HttpGet]
-        public IQueryable<usuapp> Getusuapp()
+        // GET: api/categoriass
+        public IQueryable<categorias> Getcategorias()
         {
-            return db.usuapp;
+            return db.categorias;
         }
 
-        // GET: api/usuapps/5
-        [HttpGet]
-        [ResponseType(typeof(usuapp))]
-        public async Task<IHttpActionResult> Getusuapp(int id)
+        // GET: api/categoriass/5
+        [ResponseType(typeof(categorias))]
+        public async Task<IHttpActionResult> Getcategorias(int id)
         {
-            usuapp usuapp = await db.usuapp.FindAsync(id);
-            if (usuapp == null)
+            categorias categorias = await db.categorias.FindAsync(id);
+            if (categorias == null)
             {
                 return NotFound();
             }
 
-            return Ok(usuapp);
+            return Ok(categorias);
         }
 
-        // PUT: api/usuapps/5
-        [HttpPut]
+        // PUT: api/categoriass/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> Putusuapp(int id, usuapp usuapp)
+        public async Task<IHttpActionResult> Putcategorias(int id, categorias categorias)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != usuapp.id)
+            if (id != categorias.id)
             {
                 return BadRequest();
             }
 
-            db.Entry(usuapp).State = EntityState.Modified;
+            db.Entry(categorias).State = EntityState.Modified;
 
             try
             {
@@ -61,7 +58,7 @@ namespace WebApiParaiso.Areas.HelpPage.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!usuappExists(id))
+                if (!categoriasExists(id))
                 {
                     return NotFound();
                 }
@@ -74,37 +71,35 @@ namespace WebApiParaiso.Areas.HelpPage.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/usuapps
-        [HttpPost]
-        [ResponseType(typeof(usuapp))]
-        public async Task<IHttpActionResult> Postusuapp(usuapp usuapp)
+        // POST: api/categoriass
+        [ResponseType(typeof(categorias))]
+        public async Task<IHttpActionResult> Postcategorias(categorias categorias)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.usuapp.Add(usuapp);
+            db.categorias.Add(categorias);
             await db.SaveChangesAsync();
 
-            return CreatedAtRoute("DefaultApi", new { id = usuapp.id }, usuapp);
+            return CreatedAtRoute("DefaultApi", new { id = categorias.id }, categorias);
         }
 
-        // DELETE: api/usuapps/5
-        [HttpDelete]
-        [ResponseType(typeof(usuapp))]
-        public async Task<IHttpActionResult> Deleteusuapp(int id)
+        // DELETE: api/categoriass/5
+        [ResponseType(typeof(categorias))]
+        public async Task<IHttpActionResult> Deletecategorias(int id)
         {
-            usuapp usuapp = await db.usuapp.FindAsync(id);
-            if (usuapp == null)
+            categorias categorias = await db.categorias.FindAsync(id);
+            if (categorias == null)
             {
                 return NotFound();
             }
 
-            db.usuapp.Remove(usuapp);
+            db.categorias.Remove(categorias);
             await db.SaveChangesAsync();
 
-            return Ok(usuapp);
+            return Ok(categorias);
         }
 
         protected override void Dispose(bool disposing)
@@ -116,9 +111,9 @@ namespace WebApiParaiso.Areas.HelpPage.Controllers
             base.Dispose(disposing);
         }
 
-        private bool usuappExists(int id)
+        private bool categoriasExists(int id)
         {
-            return db.usuapp.Count(e => e.id == id) > 0;
+            return db.categorias.Count(e => e.id == id) > 0;
         }
     }
 }

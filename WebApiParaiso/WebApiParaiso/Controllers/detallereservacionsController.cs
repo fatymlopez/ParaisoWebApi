@@ -11,21 +11,19 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using WebApiParaiso.Models;
 
-namespace WebApiParaiso.Areas.HelpPage.Controllers
+namespace WebApiParaiso.Controllers
 {
-    public class detallereservacionssController : ApiController
+    public class detallereservacionsController : ApiController
     {
-        private ModeloDB db = new ModeloDB();
+        private Modelodb db = new Modelodb();
 
-        // GET: api/detallereservacionss
-        [HttpGet]
+        // GET: api/detallereservacions
         public IQueryable<detallereservacion> Getdetallereservacion()
         {
             return db.detallereservacion;
         }
 
-        // GET: api/detallereservacionss/5
-        [HttpGet]
+        // GET: api/detallereservacions/5
         [ResponseType(typeof(detallereservacion))]
         public async Task<IHttpActionResult> Getdetallereservacion(int id)
         {
@@ -38,8 +36,7 @@ namespace WebApiParaiso.Areas.HelpPage.Controllers
             return Ok(detallereservacion);
         }
 
-        // PUT: api/detallereservacionss/5
-        [HttpPut]
+        // PUT: api/detallereservacions/5
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> Putdetallereservacion(int id, detallereservacion detallereservacion)
         {
@@ -74,8 +71,7 @@ namespace WebApiParaiso.Areas.HelpPage.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/detallereservacionss
-        [HttpPost]
+        // POST: api/detallereservacions
         [ResponseType(typeof(detallereservacion))]
         public async Task<IHttpActionResult> Postdetallereservacion(detallereservacion detallereservacion)
         {
@@ -105,8 +101,7 @@ namespace WebApiParaiso.Areas.HelpPage.Controllers
             return CreatedAtRoute("DefaultApi", new { id = detallereservacion.idreservacion }, detallereservacion);
         }
 
-        // DELETE: api/detallereservacionss/5
-        [HttpDelete]
+        // DELETE: api/detallereservacions/5
         [ResponseType(typeof(detallereservacion))]
         public async Task<IHttpActionResult> Deletedetallereservacion(int id)
         {
