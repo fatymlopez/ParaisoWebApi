@@ -9,6 +9,7 @@ namespace WebApiParaiso.Models
     [Table("orden")]
     public partial class orden
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
 
         public int idubicacion { get; set; }
@@ -22,5 +23,7 @@ namespace WebApiParaiso.Models
         public virtual reservacion reservacion { get; set; }
 
         public virtual ubicacion ubicacion { get; set; }
+
+        public virtual detallereservacion detalles { get; set; }
     }
 }

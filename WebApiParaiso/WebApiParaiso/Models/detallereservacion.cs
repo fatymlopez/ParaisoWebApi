@@ -21,6 +21,8 @@ namespace WebApiParaiso.Models
 
         public int? cantidad { get; set; }
 
+        public decimal? subtotal { get; set; }
+
         public virtual productos productos { get; set; }
 
         public virtual reservacion reservacion { get; set; }
