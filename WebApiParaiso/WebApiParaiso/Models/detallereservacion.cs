@@ -19,6 +19,8 @@ namespace WebApiParaiso.Models
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int idproducto { get; set; }
 
+        public decimal? precio { get; set; }
+
         public int? cantidad { get; set; }
 
         public decimal? subtotal { get; set; }

@@ -8,18 +8,18 @@ namespace WebApiParaiso.Models
     public partial class Modelodb : DbContext
     {
         public Modelodb()
-            : base("name=Modelodb")
+            : base("name=ModeloCt")
         {
         }
 
-        public DbSet<categorias> categorias { get; set; }
-        public DbSet<cliente> cliente { get; set; }
-        public DbSet<detallereservacion> detallereservacion { get; set; }
-        public DbSet<orden> orden { get; set; }
-        public DbSet<productos> productos { get; set; }
-        public DbSet<reservacion> reservacion { get; set; }
-        public DbSet<ubicacion> ubicacion { get; set; }
-        public DbSet<usuapp> usuapp { get; set; }
+        public  DbSet<categorias> categorias { get; set; }
+        public  DbSet<cliente> cliente { get; set; }
+        public  DbSet<detallereservacion> detallereservacion { get; set; }
+        public  DbSet<orden> orden { get; set; }
+        public  DbSet<productos> productos { get; set; }
+        public  DbSet<reservacion> reservacion { get; set; }
+        public  DbSet<ubicacion> ubicacion { get; set; }
+        public  DbSet<usuapp> usuapp { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -54,6 +54,14 @@ namespace WebApiParaiso.Models
                 .WithOptional(e => e.cliente)
                 .HasForeignKey(e => e.idcliente);
 
+            modelBuilder.Entity<detallereservacion>()
+                .Property(e => e.precio)
+                .HasPrecision(6, 2);
+
+            modelBuilder.Entity<detallereservacion>()
+                .Property(e => e.subtotal)
+                .HasPrecision(6, 2);
+
             modelBuilder.Entity<productos>()
                 .Property(e => e.nomproducto)
                 .IsUnicode(false);
@@ -71,6 +79,10 @@ namespace WebApiParaiso.Models
                 .WithRequired(e => e.productos)
                 .HasForeignKey(e => e.idproducto)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<reservacion>()
+                .Property(e => e.total)
+                .HasPrecision(6, 2);
 
             modelBuilder.Entity<reservacion>()
                 .HasMany(e => e.detallereservacion)
